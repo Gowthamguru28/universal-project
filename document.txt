@@ -1,0 +1,3 @@
+Google sheet - https://docs.google.com/document/d/1yRPjA0-luURivNapHFmMg_o6LZVQMLj85ScYwrDCrF0/edit
+
+sass --watch scss/sb-admin-2.scss:css/style.css
