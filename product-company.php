@@ -52,22 +52,19 @@
                   <div class="table-responsive">
                     <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="dataTable_length"><label>Show <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="dataTable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label></div></div></div><div class="row"><div class="col-sm-12"><table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                       <thead>
-                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 163px;">S.NO</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 254px;">Company Logo</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 118px;">Company Name</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 54px;">Edit</th>
+                        <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 163px;">S.NO</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 254px;">Company Name</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 118px;">Company Product</th><th class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-label="Age: activate to sort column ascending" style="width: 54px;">Edit</th>
                       </tr>
                       </thead>
                       <tfoot>
-                        <tr><th rowspan="1" colspan="1">S.No</th><th rowspan="1" colspan="1">Company Logo</th><th rowspan="1" colspan="1">Company Name</th><th rowspan="1" colspan="1">Edit</th>
+                        <tr><th rowspan="1" colspan="1">S.No</th><th rowspan="1" colspan="1">Company Name</th><th rowspan="1" colspan="1">Company Product</th><th rowspan="1" colspan="1">Edit</th>
                         </tr>
                       </tfoot>
                       <tbody>
                       <tr role="row" class="even">
                           <td class="sorting_1">1</td>
-                          <td>
-                            <div>
-                          <img src ="https://www.technocrazed.com/wp-content/uploads/2015/12/beautiful-wallpaper-download-14.jpg" width="150" alt="images">
-</div>
-                        </td>
+                         
                           <td>Tokyo</td>
+                          <td>Test</td>
                           <td><button type="button" class="btn btn-success">Edit</button></td>
                          
                         </tr>

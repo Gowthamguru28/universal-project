@@ -48,10 +48,16 @@ include 'sidebar.php';
                   <input type="text" class="form-control" id="exampleCompanyName1" aria-describedby="emailHelp" placeholder="Enter Company Name">
                  
                 </div>
-                <div class="form-group choose-image">
-                    <label for="exampleFormControlFile1">Choose Logo</label>
-                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
-                  </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Company Product</label>
+                    <select class="form-control" id="exampleFormControlSelect1">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    </select>
+                </div>
             
                 
                 <button type="submit" class="btn btn-primary">Submit</button>
