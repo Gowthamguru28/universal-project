@@ -45,13 +45,13 @@ include 'sidebar.php';
       <div class="stock">
       <p>Available Stock </p>
       <ul>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
-      <li>Red 20mm:<span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
+      <li>Red 20mm <span class="my-2">:</span><span>0.00 Mtrs</span> </li>
       </div>
           <div class="row">
          
