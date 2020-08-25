@@ -1,0 +1,15 @@
+/backend/config/services.php
+/backend/public/storage
+/backend/public/uploads
+/backend/storage
+/backend/vendor
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+npm-debug.log
+token.json
+yarn-error.log
+/backend/storage/logs
+/.idea
+
+~/.vscode-root
