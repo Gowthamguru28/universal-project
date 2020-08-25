@@ -41,7 +41,7 @@
                       <td>{{ $key->details['rto']['email'] }}</td>
                       <td>
                          <a href="{{ URL::route('users.edit',$key['id']) }}"> <button type="button" class="btn btn-success" >Edit</button></a>
-                          <form action="{{ URL::route('users.destroy',$key['id'])}}" method="post" id="product_delete_{{ $key['id'] }}">
+                          <form action="{{ URL::route('users.destroy',$key['id'])}}" method="post" class="d-inline-block" id="product_delete_{{ $key['id'] }}">
                           <button type="button" class="btn btn-danger" onclick="companyDelete('product_delete_{{ $key['id'] }}')">Delete</button>
                             @csrf()
                             @method('DELETE')

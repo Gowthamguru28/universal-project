@@ -29,7 +29,7 @@
                       <td>{{ $key['company']['name'] }}</td>
                       <td>
                          <a href="{{ URL::route('product.edit',$key['id']) }}"> <button type="button" class="btn btn-success" >Edit</button></a>
-                          <form action="{{ URL::route('product.destroy',$key['id'])}}" method="post" id="product_delete_{{ $key['id'] }}">
+                          <form action="{{ URL::route('product.destroy',$key['id'])}}" class="d-inline-block" method="post" id="product_delete_{{ $key['id'] }}">
                           <button type="button" class="btn btn-danger" onclick="companyDelete('product_delete_{{ $key['id'] }}')">Delete</button>
                             @csrf()
                             @method('DELETE')
