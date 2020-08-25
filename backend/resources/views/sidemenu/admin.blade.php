@@ -26,25 +26,7 @@
   Main Menu
 </div>
 
-<!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
-    <i class="fas fa-fw fa-folder"></i>
-    <span>Dealer & Distributor</span>
-  </a>
-  <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-      <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-      <a class="collapse-item" href="{{ URL::to('users/create') }}">Create</a>
-      <a class="collapse-item" href="{{ URL::to('users') }}">List</a>
-      <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-      <div class="collapse-divider"></div>
-      <h6 class="collapse-header">Other Pages:</h6>
-      <a class="collapse-item" href="404.html">404 Page</a>
-      <a class="collapse-item" href="blank.html">Blank Page</a> -->
-    </div>
-  </div>
-</li>
+
 
 <!-- <li class="nav-item">
   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDealer" aria-expanded="true" aria-controls="collapseDealer">
@@ -68,6 +50,21 @@
         <span>Purchase Order</span>
       </a>
       <div id="collapsePurchase" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <!-- <h6 class="collapse-header">Custom Components:</h6>
+          <a class="collapse-item" href="buttons.html">Buttons</a> -->
+          <a class="collapse-item" href="{{ URL::to('admin/purchase/create') }}">Create</a>
+          <a class="collapse-item" href="{{ URL::to('admin/purchase') }}">List</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSales" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-fw fa-cog"></i>
+        <span>Sales Order</span>
+      </a>
+      <div id="collapseSales" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6>
           <a class="collapse-item" href="buttons.html">Buttons</a> -->
@@ -127,7 +124,25 @@
       </div>
     </li>
 
-
+    <!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+    <i class="fas fa-fw fa-folder"></i>
+    <span>Dealer & Distributor</span>
+  </a>
+  <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <!-- <h6 class="collapse-header">Login Screens:</h6> -->
+      <a class="collapse-item" href="{{ URL::to('users/create') }}">Create</a>
+      <a class="collapse-item" href="{{ URL::to('users') }}">List</a>
+      <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+      <div class="collapse-divider"></div>
+      <h6 class="collapse-header">Other Pages:</h6>
+      <a class="collapse-item" href="404.html">404 Page</a>
+      <a class="collapse-item" href="blank.html">Blank Page</a> -->
+    </div>
+  </div>
+</li>
   
 
     <!-- Divider -->

@@ -4,7 +4,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Product</h1>
+          <h1 class="h3 mb-2 text-gray-800">Dealer & Distributor</h1>
       
 
           <!-- DataTales Example -->

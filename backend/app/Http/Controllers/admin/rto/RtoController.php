@@ -45,7 +45,7 @@ class RtoController extends Controller
         ]); 
         $data = request()->except(['_token','_method', 'confirm_password']);
         $data['role'] = 4;
-        $data['password'] = Hash::make('password');
+        $data['password'] = Hash::make($request['password']);
        // return $data;
         User::insert($data);
         return redirect('admin/rto');

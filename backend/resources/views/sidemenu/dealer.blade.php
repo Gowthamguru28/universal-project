@@ -5,7 +5,7 @@
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fa-laugh-wink"></i>
       </div>
-      <div class="sidebar-brand-text mx-3">Admin</div>
+      <div class="sidebar-brand-text mx-3">Dealer</div>
     </a>
 
     <!-- Divider -->
@@ -13,7 +13,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-      <a class="nav-link" href="{{ URL::to('admin') }}">
+      <a class="nav-link" href="{{ URL::to('dealer') }}">
         <i class="fas fa-fw fa-tachometer-alt"></i>
         <span>Dashboard</span></a>
     </li>
@@ -26,17 +26,18 @@
   Main Menu
 </div>
 
-<!-- Nav Item - Pages Collapse Menu -->
+
+
 <li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDealer" aria-expanded="true" aria-controls="collapseDealer">
     <i class="fas fa-fw fa-folder"></i>
-    <span>Dealer & Distributor</span>
+    <span>Customer</span>
   </a>
-  <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+  <div id="collapseDealer" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-      <a class="collapse-item" href="{{ URL::to('users/create') }}">Create</a>
-      <a class="collapse-item" href="{{ URL::to('users') }}">List</a>
+      <a class="collapse-item" href="register.html">Create</a>
+      <a class="collapse-item" href="register.html">List</a>
       <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
       <div class="collapse-divider"></div>
       <h6 class="collapse-header">Other Pages:</h6>
@@ -46,36 +47,12 @@
   </div>
 </li>
 
-<!-- <li class="nav-item">
-  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDealer" aria-expanded="true" aria-controls="collapseDealer">
-    <i class="fas fa-fw fa-folder"></i>
-    <span>Dealer</span>
-  </a>
-  <div id="collapseDealer" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-    <div class="bg-white py-2 collapse-inner rounded">
-   
-      <a class="collapse-item" href="login.html">Create</a>
-      <a class="collapse-item" href="register.html">List</a>
-    </div>
-  </div>
-</li> -->
-
-<!-- Nav Item - Tables -->
-<li class="nav-item">
-  <a class="nav-link" href="tables.html">
-    <i class="fas fa-fw fa-table"></i>
-    <span>Stock Assign</span></a>
-</li>
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
-    <!-- Sidebar Toggler (Sidebar) -->
+    <!-- Sidebar Toggler (Sidebar)
     <div class="text-center d-none d-md-inline">
       <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+    </div> -->
 
   </ul>
