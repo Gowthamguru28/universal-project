@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\UserManagement;
 use Auth;
+use App\UserRto;
 
 class UserManagementController extends Controller
 {
@@ -17,16 +18,14 @@ class UserManagementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         if(Auth::user()->isDistributor()) {
-            $user =  UserManagement::with('rto')->where('user_id', Auth::user()->id)->first();
-            $rtoId = $user->rto->id;
-            // $rto =  User::where('id', $rtoId)->get();
-            $data =  User::whereIn('role', [3])->whereHas('details' , function($query) use($rtoId) {
-                $query->where('rto_id',$rtoId);
-            })->with('details.rto')->get();
-         } else {
-            $data =  User::whereIn('role', [2,3])->with('details.rto')->get();
+            $distributorRto = UserRto::where('user_id', Auth::user()->id)->pluck('rto_id');
+            $data =  User::whereHas('tnrto' , function($query) use($distributorRto) {
+                        $query->whereIn('rto_id', $distributorRto);
+            })->whereIn('role', [3])->with('details')->get();
+         } else { 
+            $data =  User::whereIn('role', [2,3])->with('details')->get();
          }
         
         return view('admin.user.index')->with(compact('data'));
@@ -40,9 +39,11 @@ class UserManagementController extends Controller
     public function create()
     {
         if(Auth::user()->isDistributor()) {
-           $user =  UserManagement::with('rto')->where('user_id', Auth::user()->id)->first();
-           $rtoId = $user->rto->id;
-           $rto =  User::where('id', $rtoId)->get();
+            $rto = UserRto::with('rto')->where('user_id', Auth::user()->id)->get();
+            // $data =  User::with(['tnrto' => function($query) use($distributorRto) {
+            //             $query->whereIn('rto_id', $distributorRto);
+            // }])->whereIn('role', [3])->with('details')->with('details.rto')->get();
+             $rto = array_pluck($rto, 'rto');
         } else {
             $rto =  User::where('role', 4)->get();
         }
@@ -70,7 +71,7 @@ class UserManagementController extends Controller
             'company_logo' =>  'required',
             'role' =>  'required'
         ]); 
-
+         
         $user = array();
         $user['email'] = $request->email;
         $user['password'] = Hash::make($request->password);
@@ -80,7 +81,7 @@ class UserManagementController extends Controller
         $insertId = User::create($user);
 
         $details = array();
-        $details['rto_id'] = $request->rto_id;
+        //$details['rto_id'] = $request->rto_id;
         $details['mobile_no'] = $request->mobile_no;
         $details['address'] = $request->address;
         $details['company_name'] = $request->company_name;
@@ -90,6 +91,10 @@ class UserManagementController extends Controller
         $details['company_logo'] = $fileName;
 
         UserManagement::create($details);
+
+        foreach($request->rto_id as $va=>$key) {
+            UserRto::insert(['user_id'=> $insertId->id, 'rto_id'=>$key]);
+        }
 
         return redirect('users');
     }
@@ -113,8 +118,17 @@ class UserManagementController extends Controller
      */
     public function edit($id)
     {
-         $data =  User::where('id', $id)->with('details.rto')->first();
-        $rto =  User::where('role', 4)->get();
+       
+        if(Auth::user()->isDistributor()) {
+            $rto = UserRto::with('rto')->where('user_id', Auth::user()->id)->get();
+            // $data =  User::with(['tnrto' => function($query) use($distributorRto) {
+            //             $query->whereIn('rto_id', $distributorRto);
+            // }])->whereIn('role', [3])->with('details')->with('details.rto')->get();
+             $rto = array_pluck($rto, 'rto');
+        } else {
+            $rto =  User::where('role', 4)->get();
+        }
+        $data =  User::where('id', $id)->with(['details', 'tnrto.rto'])->first(); 
         return view('admin.user.edit')->with(compact('data', 'rto'));
     }
 
@@ -160,11 +174,17 @@ class UserManagementController extends Controller
         $user['role'] = $request->role;
         User::where('id', $id)->update($user);
 
-        $details['rto_id'] = $request->rto_id;
+        //$details['rto_id'] = 2;
         $details['mobile_no'] = $request->mobile_no;
         $details['address'] = $request->address;
         $details['company_name'] = $request->company_name;
         UserManagement::where('user_id', $id)->update($details);
+
+        UserRto::where('user_id', $id)->delete();
+        
+        foreach($request->rto_id as $va=>$key) {
+            UserRto::insert(['user_id'=>$id, 'rto_id'=>$key]);
+        }
         
         return redirect('users');
     }

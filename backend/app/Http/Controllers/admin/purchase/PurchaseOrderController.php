@@ -9,6 +9,7 @@ use App\Product;
 use DB;
 use App\Purchase;
 use App\PurchaseItem;
+use PDF;
 
 class PurchaseOrderController extends Controller
 {
@@ -19,6 +20,8 @@ class PurchaseOrderController extends Controller
      */
     public function index()
     {
+        // $pdf = PDF::loadView('pdf.pdf');
+        // return $pdf->download('pdf.pdf');
         $data = Purchase::get();
         return view('admin.purchase.index')->with(compact('data'));
     }
@@ -104,8 +107,8 @@ class PurchaseOrderController extends Controller
     {
         $company = Company::get();
 
-         $purchase = Purchase::where('id', $id)->with('items')->first();
-         //return $purchase->items;
+        $purchase = Purchase::where('id', $id)->with('items.product.unit')->first();
+
         return view('admin.purchase.edit')->with(compact('company','purchase'));
     }
 
@@ -160,8 +163,12 @@ class PurchaseOrderController extends Controller
 
     public function getProduct(Request $request){
 
-        $data = Product::where('company_id', $request->company_id)->get();
+        $data = Product::with('unit')->where('company_id', $request->company_id)->get();
         return response()->json($data);
 
+    }
+    public function unit(Request $request) {
+        $product =  Product::where('id', $request->product_id)->with('unit')->first();
+        return $unitName =  $product->unit->name;
     }
 }

@@ -8,6 +8,9 @@ use App\Product;
 use App\Company;
 use App\Unit;
 use Illuminate\Validation\Rule;
+use App\PurchaseItem;
+use App\SalesItems;
+use Auth;
 
 class ProductController extends Controller
 {
@@ -121,5 +124,41 @@ class ProductController extends Controller
     {
         Product::where('id', $id)->delete();
         return redirect('admin/product');
+    }
+
+    public function getUnit(Request $request) {
+       $product =  Product::where('id', $request->product_id)->with('unit')->first();
+       $unitName =  $product->unit->name;
+       if(Auth::user()->isAdmin()) {
+            $totalQty =  PurchaseItem::where('product_id', $product->id)->sum('qty');
+            if(isset($request->sale_id)) {
+                $saleQty =  SalesItems::where('sales_id','!=', $request->sale_id)->where('product_id', $product->id)->where('assigned_by', Auth::getUser()->id)->sum('qty');
+            } else {
+                $saleQty =  SalesItems::where('product_id', $product->id)->where('assigned_by', Auth::getUser()->id)->sum('qty');
+            }
+            $availableQty = $totalQty - $saleQty;
+            if( $availableQty < 0) {
+                    $availableQty = 0;
+            }
+      } else {
+          //return  Auth::getUser()->id;
+          $totalQty =  SalesItems::where('user_id', Auth::getUser()->id)->where('product_id', $product->id)->sum('qty');
+            if(isset($request->sale_id)) {
+                $saleQty =  SalesItems::where('sales_id', '!=', $request->sale_id)->where('product_id', $product->id)->where('assigned_by', Auth::getUser()->id)->sum('qty');
+            } else {
+                  $saleQty =  SalesItems::where('product_id', $product->id)->where('assigned_by', Auth::getUser()->id)->sum('qty');
+            }
+             $availableQty = $totalQty - $saleQty;
+            if( $availableQty < 0) {
+                    $availableQty = 0;
+            }
+      }
+         $saleqty = 0;
+        if(isset($request->sale_id)) {
+            $saleqty = SalesItems::where('sales_id', '!=', $request->sale_id)->where('product_id', $product->id)->where('assigned_by', Auth::getUser()->id)->sum('qty');
+           // $totalQty =  SalesItems::where('user_id', Auth::getUser()->id)->where('product_id', $product->id)->sum('qty');
+            return response(['sale_qty' => $saleqty, 'unit'=>$unitName, 'avilable_qty'=> $availableQty, 'total_qty'=>$totalQty]);
+        } 
+         return response(['sale_qty' => $saleqty, 'unit'=>$unitName, 'avilable_qty'=> $availableQty, 'total_qty'=>$availableQty]);
     }
 }

@@ -36,7 +36,7 @@
   <div id="collapseDealer" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <!-- <h6 class="collapse-header">Login Screens:</h6> -->
-      <a class="collapse-item" href="register.html">List</a>
+      <a class="collapse-item" href="{{ URL::to('customer') }}">List</a>
       <!-- <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
       <div class="collapse-divider"></div>
       <h6 class="collapse-header">Other Pages:</h6>

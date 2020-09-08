@@ -22,9 +22,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
 
   <link rel="stylesheet" href="{{asset('css/air-datepicker/css/datepicker.min.css')}}" type="text/css" media="screen"/>	
-</head>
-        <!-- Bootstrap core JavaScript-->
-        <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+
+  <link href="{{asset('css/multiselect.css')}}" rel="stylesheet" />
+
+          <!-- Bootstrap core JavaScript-->
+          <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
   <!-- Core plugin JavaScript-->
@@ -46,7 +48,7 @@
   <!-- Page level custom scripts -->
   <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
 
-  <script src="{{ asset('js/custom.js') }}"></script>
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
   
@@ -55,9 +57,10 @@
   <script src="{{ asset('js/air-datepicker/js/datepicker.min.js') }}"></script>
 	<script src="{{ asset('js/air-datepicker/js/i18n/datepicker.en.js') }}"></script>
   
-  <script>
-   
-  </script>
+  <script src="{{asset('js/multiselect.js')}}"></script>
+  <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+</head>
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -87,6 +90,7 @@
 
         <!-- Begin Page Content -->
          @yield('content')
+
         <!-- /.container-fluid -->
 
       </div>

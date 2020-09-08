@@ -24,17 +24,17 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Email</label>
-                    <input type="email" class="form-control" value="{{  $data['email'] }}" name="email" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <input type="email" class="form-control" value="{{  $data['email'] }}" name="email"  autocomplete="off" id="exampleFormControlInput1" placeholder="name@example.com">
                     <span style="color:red;">{{ $errors->first('email') }}</span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control"  name="password" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control"  autocomplete="off" name="password" id="exampleInputPassword1" placeholder="Password">
                     <span style="color:red;">{{ $errors->first('password') }}</span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control"  autocomplete="off" name="confirm_password" id="exampleInputPassword1" placeholder="Confirm Password">
                     <span style="color:red;">{{ $errors->first('confirm_password') }}</span>
                 </div>
                 <div class="form-group">
@@ -44,10 +44,9 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">RTO</label>
-                  <select class="form-control" name="rto_id" id="exampleFormControlSelect1">
-                    <option>Select RTO</option>
+                  <select class="form-control" name="rto_id[]" id="rto_id" multiple>
                     @foreach($rto as $va=>$key)
-                        <option value="{{ $key->id }}" @if($data['details']['rto_id'] == $key->id) selected @endif>{{ $key->email }}</option>
+                        <option value="{{ $key->id }}" @if(in_array($key->id, array_pluck($data->tnrto,'rto_id')))  selected @endif>{{ $key->email }}</option>
                     @endforeach
                    
                     </select>
@@ -75,4 +74,27 @@
               </form>
           </div>
       </div>
+
+      <script>
+      $('#rto_id').multiselect({
+        buttonWidth: '249px',
+            buttonText: function(options, select) {
+                if (options.length === 0) {
+                    return 'Select';
+                }
+                 else {
+                     var labels = [];
+                     options.each(function() {
+                         if ($(this).attr('label') !== undefined) {
+                             labels.push($(this).attr('label'));
+                         }
+                         else {
+                             labels.push($(this).html());
+                         }
+                     });
+                     return labels.join(', ') + '';
+                 }
+            }
+    });
+      </script>
 @endsection

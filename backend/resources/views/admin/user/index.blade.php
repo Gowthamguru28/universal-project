@@ -4,7 +4,11 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Dealer & Distributor</h1>
+          @if(Auth::user()->isAdmin())
+            <h1 class="h3 mb-2 text-gray-800">Dealer & Distributor</h1>
+          @else 
+          <h1 class="h3 mb-2 text-gray-800">Dealers</h1>
+          @endif
       
 
           <!-- DataTales Example -->
@@ -21,7 +25,6 @@
                       <th>Name</th>
                       <th>Email</th>
                       <th>Mobile No</th>
-                      <th>RTO</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -38,7 +41,6 @@
                       <td>{{ $key['name'] }}</td>
                       <td>{{ $key['email'] }}</td>
                       <td>{{ $key->details['mobile_no'] }}</td>
-                      <td>{{ $key->details['rto']['email'] }}</td>
                       <td>
                          <a href="{{ URL::route('users.edit',$key['id']) }}"> <button type="button" class="btn btn-success" >Edit</button></a>
                           <form action="{{ URL::route('users.destroy',$key['id'])}}" method="post" class="d-inline-block" id="product_delete_{{ $key['id'] }}">

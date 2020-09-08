@@ -5,7 +5,7 @@
             <form class="company-creation-form" method="post" action="{{ URL::route('users.store') }}" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Select Role</label>
-                    <select class="form-control" name="role" id="exampleFormControlSelect1">
+                    <select class="form-control" name="role" id="user_type" >
                         <option value="">Select Role</option>
                         @if(!Auth::user()->isDistributor())
                         <option value="2" @if(old('role') == 2) selected @endif>Distributor</option>
@@ -26,17 +26,17 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Email</label>
-                    <input type="email" class="form-control" value="{{ old('email') }}" name="email" id="exampleFormControlInput1" placeholder="name@example.com">
+                    <input type="email" class="form-control" value="{{ old('email') }}"  autocomplete="off" name="email" id="exampleFormControlInput1" placeholder="name@example.com">
                     <span style="color:red;">{{ $errors->first('email') }}</span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control"  name="password" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control"  autocomplete="off" name="password" id="exampleInputPassword1" placeholder="Password">
                     <span style="color:red;">{{ $errors->first('password') }}</span>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>
-                    <input type="password" class="form-control" name="confirm_password" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control" name="confirm_password"  autocomplete="off" id="exampleInputPassword1" placeholder="Confirm Password">
                     <span style="color:red;">{{ $errors->first('confirm_password') }}</span>
                 </div>
                 <div class="form-group">
@@ -46,8 +46,8 @@
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">RTO</label>
-                  <select class="form-control" name="rto_id" id="exampleFormControlSelect1">
-                    <option>Select RTO</option>
+                  <select class="form-control" name="rto_id[]" id="rto_id" multiple onchange="selectUser(this)">
+                    <!-- <option>Select RTO</option> -->
                     @foreach($rto as $va=>$key)
                         <option value="{{ $key->id }}" @if(old('rto_id') == $key->id) selected @endif>{{ $key->email }}</option>
                     @endforeach
@@ -71,4 +71,33 @@
               </form>
           </div>
       </div>
+      <script>
+      $('#rto_id').multiselect({
+        buttonWidth: '249px',
+            buttonText: function(options, select) {
+                if (options.length === 0) {
+                    return 'Select';
+                }
+                 else {
+                     var labels = [];
+                     options.each(function() {
+                         if ($(this).attr('label') !== undefined) {
+                             labels.push($(this).attr('label'));
+                         }
+                         else {
+                             labels.push($(this).html());
+                         }
+                     });
+                     return labels.join(', ') + '';
+                 }
+            }
+    });
+    function selectUser(obj) {
+        // var user_type = $('#user_type').val();
+        // if (user_type == '') {
+        //     alert();
+        //         $(obj).val("");
+        // }
+    }
+      </script>
 @endsection

@@ -19,7 +19,7 @@
 			<div class="col-md-6 col-lg-4 col-xl-3">
 				<div class="form-group">
 					<label>Order Date</label>
-					<input type="text" class="datepick form-control"  name="order_date" value="{{ old('order_date') }}">
+					<input type="text" autocomplete="off" required class="datepick form-control"  name="order_date" value="{{ old('order_date') }}">
 					<span style="color:red">{{ $errors->first('order_date') }} </span>
 				</div>
 			</div>
@@ -30,13 +30,14 @@
 	<tr>
 		<th colspan="1">Company</th>
         <th>Product</th>
-		<th width="100">QUANTITY</th>
+		<th>Unit</th>
+		<th width="100">Quantity</th>
 		</tr>
 	</thead>
 	<tbody>
 	@if(old('company_id') == '')
 	<tr class="entry">
-		<td><select id="new_brand" name="company_id[]" class="form-control company_list" onchange="getProduct(this);" >
+		<td><select id="new_brand" name="company_id[]" class="form-control company_list" onchange="getProduct(this);" required>
         <option value="">Select Company</option>
                         @foreach($company as $va=>$key)
                             <option value="{{ $key->id }}">{{ $key->name }}</option>
@@ -46,12 +47,13 @@
 		</td>
         
 		<td>
-			<select id="new_item"  name="product_id[]" class="form-control product_list brand-creation" onchange="item_change(this);" >
+			<select id="new_item"  name="product_id[]" required class="form-control product_list brand-creation" onchange="item_change(this);" >
             <option value="">Select Product</option>
 			</select>
 			<span style="color:red">{{ $errors->first('product_id') }} </span>
 		</td>
-		<td><input type="text" id="new_qty" name="quantity[]" class="form-control" placeholder="Quantity" class="quantity" >
+		<td><input type="text" readonly class="form-control unit"></td>
+		<td><input type="text" id="new_qty" name="quantity[]" class="form-control quantity" placeholder="Qty"  required>
 			<span style="color:red">{{ $errors->first('quantity') }} </span>
 		</td>
 		
@@ -79,6 +81,7 @@
 			</select>
 			<span style="color:red">{{ $errors->first('product_id.*') }} </span>
 		</td>
+		<td><input type="text" readonly class="form-control unit"></td>
 		<td><input type="text" id="new_qty" name="quantity[]" placeholder="Quantity" class="quantity" value="{{ old('quantity')[$va1] }}">
 			<span style="color:red">{{ $errors->first('quantity.*') }} </span>
 		</td>
@@ -94,8 +97,8 @@
 </div>			
 		<div class="form-footer">
  
-			<button class="btn btn-default" href="#">Submit</button>
-			<a class="" href="{{ URL::to('admin/purchase') }}">Cancel</a>
+			<button class="btn btn-primary" href="#">Submit</button>
+			<a class="btn btn-danger" href="{{ URL::to('admin/purchase') }}">Cancel</a>
 			
 			 {{ method_field('POST') }}
               {{ csrf_field() }}
@@ -104,7 +107,7 @@
 			
 			</div>
 			</div>
-			</div>
+			</div></div>
 	</form>	
 	
 	
@@ -185,7 +188,7 @@
         var val = obj.value;
 		var base_url = "{{ URL::to('/')}}";
 		$.ajax({
-			url: base_url+'/admin/products',
+			url: base_url+'/products',
 			type: 'get',
 			data: { company_id: val },
 			dataType: "JSON",
@@ -229,55 +232,21 @@
 		  });	
 			
 	}
-	 function item_change(tis)
+	function item_change(tis)
 	{
-		     var values='';
-
-			$(tis).parents('tbody').find(".brand-creation").each(function() {
-				if(values=='') 
-					values=$(this).val();
-				else
-					values=values+','+$(this).val();
-			});
-			var sa = $(tis).val();
-			var match = values.split(',');
-			var select_count=0;
-
-			for (var a in match)
-			{
-				var variable = match[a];
-
-				if(sa==variable)
-					select_count++;
+		var base_url = "{{ URL::to('/')}}/";
+		//var html ="<option  selected>Select Brand</option>";	
+		var val = $(tis).val();
+		$.ajax({
+			url: base_url+'admin/unit-by-product',
+			type: 'get',
+			data: { product_id: val },
+			//dataType: "JSON",
+			success: function(response){ 
+				 $(tis).parents('tr').find('.unit').val(response);
+				 $(tis).parents('tr').find('.quantity').val(0);
 			}
-			if(select_count==1)
-			{
-				
-					var val = tis.value;
-					var base_url = "{{ URL::to('/')}}/";
-
-					$.ajax({
-						url: base_url+'item-by-price',
-						type: 'get',
-						data: { item_id: val },
-						//dataType: "JSON",
-						success: function(response){ 										
-                                // console.log(response.purchase_price);
-								$(tis).parents('tr').find(".rate").val(parseInt(response.p_price));
-							    $(tis).parents('tr').find(".discount").val(parseInt(response.purchase_discount));
-							    $(tis).parents('tr').find(".discounted_amount").val(parseInt(response.new_price));
-							
-						}
-					  });	
-			}
-			else
-			{				
-				    // $(tis).parents('tr').find('.available').val(0); 
-				    alert('This product already selected.');
-				    $(tis).val(" ");
-				    $(tis).select2();
-				
-			}
+		  });	
 	}
 	
 	function delivery_addr(tis)
@@ -319,79 +288,33 @@
 				 //$('#new_address').attr('style','display:none');
 		}
 	}
-	$(document).on('keyup', '.quantity', function() {
-        var qty = $(this).val();
-		var price = $(this).parents('tr').find("input[class='discounted_amount']").val();
-		var result = qty * price;
-		 $(this).parents('tr').find(".amount").val(parseInt(result));
-		
-		 var total_amount = 0;
-        $(this).parents('form').find(".amount").each(function() {
-            if ($(this).val() != '')
-                total_amount += parseInt($(this).val());
-        });
-		
-		 $(this).parents('table').find(".sub").val(total_amount);
-		$(this).parents('table').find(".total").val(total_amount);
-		//alert($(this).parents('table').next('tfoot').find('.sub'));
-		
-			var num =  $(this).parents('table').find(".sub").val();
-		var per =  $(this).parents('table').find(".net_discount").val();
-		var dis_amount = (num/100)*per;
-		var net_amout =parseInt(num)-parseInt(dis_amount);
-		
-		
-		$(this).parents('table').find(".total").val(net_amout);
+	$(document).on('keypress', '.quantity', function() {
+		var unit = $(this).parents('tr').find(".unit").val();
+		if(unit == 'Metre') {
+			return isNumberDecimal();
+		} else {
+			return isNumber();
+		}
     });
 	
-	
-	$(document).on('keyup', '.net_discount', function() {
-        var qty = $(this).val();
-		var price = $(this).parents('tr').find("input[class='discounted_amount']").val();
-		var result = qty * price;
-		 $(this).parents('tr').find(".amount").val(parseInt(result));
-		
-		 var total_amount = 0;
-        $(this).parents('form').find(".amount").each(function() {
-            if ($(this).val() != '')
-                total_amount += parseInt($(this).val());
-        });
-		
-		var num =  $(this).parents('table').find(".sub").val();
-		var per =  $(this).val();
-		var dis_amount = (num/100)*per;
-		var net_amout =parseInt(num)-parseInt(dis_amount);
-		
-		
-		$(this).parents('table').find(".total").val(net_amout);
-		//alert($(this).parents('table').next('tfoot').find('.sub'));
-    });
-	
-	function submits(tis)
-	{
-		
-		var baseUrl = "{{ URL::to('/')}}";
-		 var formData = $(tis).closest('form').serialize();
-       $.ajax({
-            url : baseUrl+'/ajaxaddproduct',
-            type : 'POST',
-            data : formData,
-            success : function(response)
-            {
-				if(response != 0)
-				{ 
-					    $('#new_brand').append('<option selected value='+response['id']+'>'+response['name']+'</option>');
-						$("#myModal").modal('toggle');
-				}
-                
-            }
-        });
-		
+	function isNumberDecimal(evt, element) {
+			var charCode = (evt.which) ? evt.which : evt.keyCode
+			if (
+				(charCode != 45 || $(element).val().indexOf('-') != -1) &&      // “-” CHECK MINUS, AND ONLY ONE.
+				(charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+				(charCode < 48 || charCode > 57))
+				return false;
+			return true;
+	} 
+	function isNumber(evt) {
+			evt = (evt) ? evt : window.event;
+			var charCode = (evt.which) ? evt.which : evt.keyCode;
+			if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+				return false;
+			}
+			return true;
 	}
-	function create_item()
-	{
-		$("#myModal").modal();
-	}
+	
 
 	$(document).on('click', '.btn-adds',function(e)
  {

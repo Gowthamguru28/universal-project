@@ -68,8 +68,8 @@
         <div class="bg-white py-2 collapse-inner rounded">
           <!-- <h6 class="collapse-header">Custom Components:</h6>
           <a class="collapse-item" href="buttons.html">Buttons</a> -->
-          <a class="collapse-item" href="{{ URL::to('admin/purchase/create') }}">Create</a>
-          <a class="collapse-item" href="{{ URL::to('admin/purchase') }}">List</a>
+          <a class="collapse-item" href="{{ URL::to('sales/create') }}">Create</a>
+          <a class="collapse-item" href="{{ URL::to('sales') }}">List</a>
         </div>
       </div>
     </li>

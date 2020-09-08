@@ -58,4 +58,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      {
          return $this->hasOne('App\UserManagement');
      }
+     public function tnrto()
+     {
+         return $this->hasMany('App\UserRto');
+     }
 }

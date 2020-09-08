@@ -21,3 +21,22 @@ function sweetDelete(deleteId) {
 function editDelete(editId) {
     $('#'+editId).remove();
 }
+function getUnit(obj) {
+    var val = obj.value;
+    var base_url = "{{ URL::to('/')}}";
+    $.ajax({
+        url: base_url+'/get-unit',
+        type: 'get',
+        data: { product_id : val },
+        dataType: "JSON",
+        success: function(response) {			
+            $(obj).parents('tr').find('.unit').val(response);
+        }
+      });	
+}
+function aa() {
+    alert();
+}
+$( document ).ready(function() {
+    
+});
